@@ -53,7 +53,7 @@ https://blog.darrenjrobinson.com/jwtdetails-powershell-module-for-decoding-jwt-a
 #>
     # Test textual encoding as per https://tools.ietf.org/html/rfc7468
     $verCertStart = "-----BEGIN CERTIFICATE-----`r`nM"
-    $verCertEnd = "==`r`n-----END CERTIFICATE-----"
+    $verCertEnd = "=`r`n-----END CERTIFICATE-----"
     if ($cert.StartsWith($verCertStart) -and $cert.EndsWith($verCertEnd)) { 
         $check = $true 
         $cert = $cert.Replace("-----BEGIN CERTIFICATE-----", "")
