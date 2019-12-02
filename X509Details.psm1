@@ -38,11 +38,12 @@ PS> Get-X509Details('MIIDtzCCAp+gAwIBAgIQZpJpy9zmR........URpc0T9DzsUUfoHfbQ==')
 or
 PS> 'MIIDtzCCAp+gAwIBAgIQZpJpy9zmR........URpc0T9DzsUUfoHfbQ==' | Get-X509Details
 or 
-PS> Get-X509Details('-----BEGIN CERTIFICATE-----
+PS> Get-X509Details('@
+                    -----BEGIN CERTIFICATE-----
                     MIIDtzCCAp
                     ........URpc0T9DzsUUfoHfbQ==
                     -----END CERTIFICATE-----
-                    ')
+                    '@)
 
 .LINK
 
@@ -60,8 +61,8 @@ https://blog.darrenjrobinson.com/jwtdetails-powershell-module-for-decoding-jwt-a
         $cert = $cert.trim()
     } 
     if (!$check) {
-        if (!$cert.StartsWith("M") -and !$cert.EndsWith('==')) { 
-            Write-Error "Invalid certificate or not in PEM / CER Format" -ErrorAction Stop 
+        if (!$cert.StartsWith("M") -and !$cert.EndsWith('=')) { 
+            Write-Error "Invalid certificate or not in PEM / CER Format $($_)" -ErrorAction Stop 
         }
     }
 
@@ -77,7 +78,7 @@ https://blog.darrenjrobinson.com/jwtdetails-powershell-module-for-decoding-jwt-a
         return $certData | Select-Object -property Subject, Issuer, IssuerName, Thumbprint, FriendlyName, NotBefore, NotAfter, HasPrivateKey, Extensions,  DnsNameList, version, SendAsTrustedIssuer, PrivateKey, PublicKey, EnhancedKeyUsageList, timetoexpiry | Format-List
     }
     catch {
-        Write-Error "Invalid certificate or not in PEM / CER Format" -ErrorAction Stop 
+        Write-Error "Invalid certificate or not in PEM / CER Format $($_)" -ErrorAction Stop 
     }
 }
 

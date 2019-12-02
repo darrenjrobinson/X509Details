@@ -4,7 +4,7 @@ Certificate PowerShell Object details updated to include the X509 Certificate ti
 
 [Available in the PowerShell Gallery](https://www.powershellgallery.com/packages/X509Details)
 
-[Associated Blogpost](https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiry/)
+[Associated Blogpost](https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiryy/)
 
 ## Install
 Install direct from the PowerShell Gallery (Powershell 5.x and above)
@@ -50,6 +50,6 @@ PS> Get-X509Details('-----BEGIN CERTIFICATE-----
 ## LINK
 
 https://blog.darrenjrobinson.com 
-https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiry/ 
+https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiry 
 
 ```

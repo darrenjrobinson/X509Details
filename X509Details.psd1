@@ -1,6 +1,6 @@
 @{
     RootModule        = 'X509Details.psm1'
-    ModuleVersion     = '1.0.0'
+    ModuleVersion     = '1.0.3'
     GUID              = '7626e2fd-9ee2-4f8d-a89c-64c4358634ad'
     Author            = 'Darren J Robinson'
     CompanyName       = 'Community'
