@@ -1,10 +1,12 @@
 # X509Details
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/X509Details.svg?style=flat&logo=powershell&label=PSGallery%20Version)](https://www.powershellgallery.com/packages/X509Details) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/X509Details.svg?style=flat&logo=powershell&label=PSGallery%20Downloads)](https://www.powershellgallery.com/packages/X509Details)
+
 Decode an X509 Certificate and present it as a PowerShell Object.
 Certificate PowerShell Object details updated to include the X509 Certificate time to expiry (timeToExpiry).
 
 [Available in the PowerShell Gallery](https://www.powershellgallery.com/packages/X509Details)
 
-[Associated Blogpost](https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiryy/)
+[Associated Blogpost](https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiry/)
 
 ## Install
 Install direct from the PowerShell Gallery (Powershell 5.x and above)
@@ -45,11 +47,10 @@ PS> Get-X509Details('-----BEGIN CERTIFICATE-----
                     ........URpc0T9DzsUUfoHfbQ==
                     -----END CERTIFICATE-----
                     ')
-
-
-## LINK
-
-https://blog.darrenjrobinson.com 
-https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiry 
-
 ```
+
+## LINKS
+
+* [Darren Robinson's blog](https://blog.darrenjrobinson.com)
+* [Associated X509Details Blogpost](https://blog.darrenjrobinson.com/x509details-powershell-module-for-decoding-x509-certificates-with-time-to-certificate-expiry/)
+* [Follow Darren on Twitter](https://twitter.com/darrenjrobinson)![](http://twitter.com/favicon.ico)
