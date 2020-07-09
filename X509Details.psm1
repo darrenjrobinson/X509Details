@@ -66,16 +66,23 @@ https://blog.darrenjrobinson.com/jwtdetails-powershell-module-for-decoding-jwt-a
         }
     }
 
-    $certData = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2    
     try {
+        # Windows PowerShell
+        $certData = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2    
         $certData.Import([Convert]::FromBase64String($cert))
+    }
+    catch {
+        # PowerShell Core/6/7+
+        $certData = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2(, [Convert]::FromBase64String($cert))
+    }
+    try {
         Write-Verbose "Certificate:$($certData.Subject)"        
 
         # Time to Expiry
         $timeToExpiry = ($certData.NotAfter - (get-date))
         Write-Verbose "Days until certificatioin expiry: $($timeToExpiry)"        
         $certData | Add-Member -Type NoteProperty -Name "timeToExpiry" -Value $timeToExpiry
-        return $certData | Select-Object -property Subject, Issuer, IssuerName, Thumbprint, FriendlyName, NotBefore, NotAfter, HasPrivateKey, Extensions,  DnsNameList, version, SendAsTrustedIssuer, PrivateKey, PublicKey, EnhancedKeyUsageList, timetoexpiry | Format-List
+        return $certData | Select-Object -property Subject, Issuer, IssuerName, Thumbprint, FriendlyName, NotBefore, NotAfter, HasPrivateKey, Extensions, DnsNameList, version, SendAsTrustedIssuer, PrivateKey, PublicKey, EnhancedKeyUsageList, timetoexpiry | Format-List
     }
     catch {
         Write-Error "Invalid certificate or not in PEM / CER Format $($_)" -ErrorAction Stop 
@@ -86,8 +93,8 @@ Export-ModuleMember -Function 'Get-X509Details'
 # SIG # Begin signature block
 # MIIX8wYJKoZIhvcNAQcCoIIX5DCCF+ACAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUGAUSAM75eAL5HTNc3giZLZmt
-# vp2gghMmMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUdFi/xDa0Ru2h6SceJwiOQrKR
+# iKugghMmMIID7jCCA1egAwIBAgIQfpPr+3zGTlnqS5p31Ab8OzANBgkqhkiG9w0B
 # AQUFADCBizELMAkGA1UEBhMCWkExFTATBgNVBAgTDFdlc3Rlcm4gQ2FwZTEUMBIG
 # A1UEBxMLRHVyYmFudmlsbGUxDzANBgNVBAoTBlRoYXd0ZTEdMBsGA1UECxMUVGhh
 # d3RlIENlcnRpZmljYXRpb24xHzAdBgNVBAMTFlRoYXd0ZSBUaW1lc3RhbXBpbmcg
@@ -194,22 +201,22 @@ Export-ModuleMember -Function 'Get-X509Details'
 # A1UEAxMoRGlnaUNlcnQgU0hBMiBBc3N1cmVkIElEIENvZGUgU2lnbmluZyBDQQIQ
 # DOzRdXezgbkTF+1Qo8ZgrzAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIBDDEKMAig
 # AoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEEAYI3AgEL
-# MQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUCwCVbQkPIKakfDycDaqQ
-# TGtLpvIwDQYJKoZIhvcNAQEBBQAEggEAgofnQojoIVtj1TglJdtJurBxOm3oUW7q
-# KGWdwuZPdJVOMw9d8jti/7GYs3JymmdU2guuhej8a3Mio4Xoxr70VKCQ+dqXONLp
-# oTXY9JGKjrUJh/eu8DkJBO+HVUgatgeIx5npTJERDMeQgoL9c0sPw6TLkR81nouS
-# Cu4f15BA5HpqtmJuWsW4Cf0h76Q6TJVUYETDQ75Oo6Ytar7nieIXxE21Rmj20fP1
-# wTjeQokpOEp4/VCb4ct9DEuRaTUiyCapKi7/j6Xc6+1wTtHkYPpzA3fs9QaGaQi4
-# jk9dNQT/xUZqz4NpDpPZ1g2k6oPGjewaG29aks7Qzq6o5ip/mcFi8KGCAgswggIH
+# MQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUaEJrpX1HwuYeADzoIGc8
+# 6mIBTNMwDQYJKoZIhvcNAQEBBQAEggEAeX0tEqK6YVrvX/dPnve7Ll9UnJbS/oTw
+# tQpc3hyC5m8y+DtIJZFzgApxKymBh9k2WY4x2R36KpR0CDEVIgNw99AWOQaZjeD1
+# Hj4xaMW5JcYAGVox+Fbw3D4N+S2rrWcugVYfc60Er7/wgkvJaEGf/X1C20tsAuk4
+# Z6jpxV5RWzezw9bygjnHxjF0N+KZkf10na8wDFi6RjvRmKV0OUke2La4NwSxrIoS
+# eYKpanrBc5ewGhrxBK6KR7guuxCWCz/j68413iF9CoubcNAqYEC1ha9wZqr6/N8K
+# ZZIYRZTLDPbFRtc7zC1yj5+eW/Xg4KMgGiuTwicE/eL2v5apWTZ626GCAgswggIH
 # BgkqhkiG9w0BCQYxggH4MIIB9AIBATByMF4xCzAJBgNVBAYTAlVTMR0wGwYDVQQK
 # ExRTeW1hbnRlYyBDb3Jwb3JhdGlvbjEwMC4GA1UEAxMnU3ltYW50ZWMgVGltZSBT
 # dGFtcGluZyBTZXJ2aWNlcyBDQSAtIEcyAhAOz/Q4yP6/NW4E2GqYGxpQMAkGBSsO
 # AwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEP
-# Fw0yMDA2MTUwNDMzMTRaMCMGCSqGSIb3DQEJBDEWBBR8fA04ZnKDmWBk5yK84LxA
-# puU6qjANBgkqhkiG9w0BAQEFAASCAQBAI8UmbLIIBfrexq6CVO7BpOGAtWmaiaoa
-# D0J6ZX43iqepfdFcsIRrzQV9icvkM3ifYvIqWVhGRLbk4kxgQoKn9+wUZHI3NvM/
-# 1l2c9T5TnV0cBRs7NuC02EdApflRg6dDI0un3NG2Et0PcJUGpCnZpmS+BNto35iA
-# KxxestMUurKj7SZqoAhSti7TyRzDpqqYb8vB45fQndp42wGfYN/R9GukTOfZdL7c
-# DmxacQ2t62wG4sQFnG02KvDWb+A9RFoA7bnmv6iyAukzMR042PO8mASokqT85fh7
-# u/LQ09rkfQ1eH3XB5fT3Dc7Trin+QsBW6jJH0DIokIO0c9G9NJb4
+# Fw0yMDA3MDkwNDU0NDZaMCMGCSqGSIb3DQEJBDEWBBRKWvu1gfFrCmkJLlX1YSue
+# ePxubTANBgkqhkiG9w0BAQEFAASCAQA7UnMK70L7k6C/cbgcwqWECzwJ14H48E/G
+# /pjlP37EwVmXXWxGqD849CsE2znF9TWEqCDHqtQ6uxJlbhx92bsMgfzTyHdhvBmD
+# A5uhutF+Vgt8nXzgMVzi/DOa1U7CaysPZReJqBEersGg0ZkEb0J1g1hPCEoucCU5
+# 3anU9oDx8tpU36BLlnp4Dr8s9JcVZlSdAPKc/5i3j3PtUFblgYDLMKOKeZYXJELL
+# iArPTkYuevvuFlYXHXj73hR1gaDChEYjVWRUTRqR8hbygQIqq4RieB9s7t0NRySC
+# a5QrsEjX4FubbGERiMZGO64Zxn2Qq2z8vg9VAaAr4M4gQlZEj3Ph
 # SIG # End signature block
