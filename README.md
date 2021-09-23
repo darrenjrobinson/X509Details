@@ -33,7 +33,7 @@ PowerShell Object
 
 ## SYNTAX 
 
-Get-X509Details('accesstoken')
+Get-X509Details('certBase64String')
 
 ## EXAMPLE
 
